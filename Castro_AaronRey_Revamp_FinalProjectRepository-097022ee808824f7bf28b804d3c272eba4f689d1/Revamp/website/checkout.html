@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Revamp</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=3">
+    <style>
+        .gcash-qr-card {
+            margin-top: 10px;
+            padding: 14px;
+            background: #141414;
+            border: 1px solid #333;
+            border-radius: 8px;
+            color: #e5e5e5;
+        }
+        .gcash-qr-layout {
+            display: flex;
+            gap: 14px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .gcash-qr-box {
+            width: 116px;
+            height: 116px;
+            background: #ffffff;
+            padding: 8px;
+            border-radius: 6px;
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            grid-template-rows: repeat(7, 1fr);
+            gap: 2px;
+            flex-shrink: 0;
+        }
+        .gcash-qr-cell {
+            background: #ffffff;
+        }
+        .gcash-qr-cell.on {
+            background: #111111;
+        }
+        .gcash-qr-meta {
+            flex: 1;
+            min-width: 180px;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+        .gcash-demo-btn {
+            margin-top: 8px;
+            background: #222;
+            color: #fff;
+            border: 1px solid #555;
+            padding: 6px 10px;
+            border-radius: 5px;
+            font-size: 11px;
+            font-family: monospace;
+            cursor: pointer;
+        }
+        .gcash-demo-btn:hover {
+            background: #333;
+        }
+    </style>
+</head>
+<body class="checkout-body">
+
+    <div class="checkout-wrapper">
+        <div class="checkout-top-header">
+            <span>CHECKOUT</span>
+            <a href="cart.html">[ BACK TO CART ]</a>
+        </div>
+
+        <div class="checkout-brand">REVAMP</div>
+
+        <div class="checkout-grid">
+            <form id="checkoutForm" class="checkout-form-col">
+                <div class="form-group">
+                    <div class="form-section-title">CONTACT</div>
+                    <input type="email" class="dark-input" placeholder="Email Address" required>
+                    <input type="text" class="dark-input" placeholder="Full Name" required>
+                </div>
+
+                <div class="form-group">
+                    <div class="form-section-title">SHIPPING ADDRESS</div>
+                    <input type="text" class="dark-input" placeholder="Address" required>
+                    <div class="input-row">
+                        <input type="text" class="dark-input" placeholder="City" required>
+                        <input type="text" class="dark-input" placeholder="Postal Code" required>
+                    </div>
+                    <input type="tel" class="dark-input" placeholder="Phone Number" required>
+                </div>
+
+                <div class="form-group">
+                    <div class="form-section-title">PAYMENT METHOD</div>
+                    <div class="payment-options">
+                        <label class="radio-label">
+                            <input type="radio" name="payment" value="GCash" checked>
+                            <span>GCash (E-Wallet / Demo QR)</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="payment" value="Cash on Delivery">
+                            <span>Cash on Delivery (COD)</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="payment" value="Bank Transfer">
+                            <span>Bank Transfer</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="payment" value="Card">
+                            <span>Credit / Debit Card</span>
+                        </label>
+                    </div>
+
+                    <div id="gcashDetailsBox" class="gcash-qr-card">
+                        <div class="gcash-qr-layout">
+                            <div id="demoGcashQr" class="gcash-qr-box" aria-label="Demo GCash QR Code"></div>
+                            <div class="gcash-qr-meta">
+                                <div><strong>DEMO GCASH QR (FAKE FOR TESTING)</strong></div>
+                                <div><strong>Merchant:</strong> REVAMP STUDIO</div>
+                                <div><strong>GCash No.:</strong> 0917-555-0194</div>
+                                <div><strong>Amount:</strong> <span id="gcashQrAmount">₱0</span></div>
+                                <button type="button" id="simulateGcashPaidBtn" class="gcash-demo-btn">[ GENERATE DEMO REF # ]</button>
+                                <div id="gcashDemoStatus" style="margin-top: 4px; color: #9be7a5;"></div>
+                            </div>
+                        </div>
+                        <input type="text" id="gcashRefInput" class="dark-input" placeholder="GCash Sender Number or Demo Ref # (optional)" style="margin-top: 10px;">
+                    </div>
+                </div>
+
+                <button type="submit" class="place-order-btn">[ PLACE ORDER ]</button>
+            </form>
+
+            <div class="checkout-summary-col">
+                <div class="summary-title">ORDER SUMMARY</div>
+                <div id="checkoutSummaryList" class="summary-items"></div>
+
+                <div id="checkoutShippingMethod" class="summary-note"></div>
+                <div id="checkoutShippingNote" class="summary-note" style="display: none;"></div>
+
+                <hr class="summary-divider">
+
+                <div class="summary-row">
+                    <span>Shipping</span>
+                    <span id="checkoutShipping">₱0</span>
+                </div>
+
+                <hr class="summary-divider">
+
+                <div class="summary-row total-row">
+                    <span>TOTAL</span>
+                    <span id="checkoutTotal">₱0</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js?v=3"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const qrContainer = document.getElementById('demoGcashQr');
+            const pattern = [
+                '1110111',
+                '1010101',
+                '1110111',
+                '0101010',
+                '1110101',
+                '1011010',
+                '1110111'
+            ];
+            if (qrContainer) {
+                qrContainer.innerHTML = pattern.flatMap(row =>
+                    row.split('').map(cell =>
+                        `<span class="gcash-qr-cell ${cell === '1' ? 'on' : ''}"></span>`
+                    )
+                ).join('');
+            }
+
+            const syncQrAmount = () => {
+                const totalText = document.getElementById('checkoutTotal');
+                const qrAmount = document.getElementById('gcashQrAmount');
+                if (totalText && qrAmount) {
+                    qrAmount.textContent = totalText.textContent || '₱0';
+                }
+            };
+            setTimeout(syncQrAmount, 50);
+
+            const paymentRadios = document.querySelectorAll('input[name="payment"]');
+            const gcashBox = document.getElementById('gcashDetailsBox');
+            const toggleGcashBox = () => {
+                const selected = document.querySelector('input[name="payment"]:checked');
+                if (gcashBox) {
+                    gcashBox.style.display = selected && selected.value === 'GCash' ? 'block' : 'none';
+                }
+                syncQrAmount();
+            };
+            paymentRadios.forEach(r => r.addEventListener('change', toggleGcashBox));
+            toggleGcashBox();
+
+            const genRefBtn = document.getElementById('simulateGcashPaidBtn');
+            const refInput = document.getElementById('gcashRefInput');
+            const statusEl = document.getElementById('gcashDemoStatus');
+            if (genRefBtn && refInput) {
+                genRefBtn.addEventListener('click', () => {
+                    const fakeRef = 'GCASH-DEMO-' + Math.floor(100000 + Math.random() * 900000);
+                    refInput.value = fakeRef;
+                    if (statusEl) {
+                        statusEl.textContent = `Demo reference ${fakeRef} filled.`;
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

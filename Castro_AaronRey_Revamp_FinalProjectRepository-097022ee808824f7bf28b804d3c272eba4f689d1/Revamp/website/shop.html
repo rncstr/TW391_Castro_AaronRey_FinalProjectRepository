@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop - Revamp</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=2">
+</head>
+<body>
+
+    <header class="site-header">
+        <a href="index.html" class="site-logo">Revamp</a>
+        <ul class="nav-links">
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+            <li><a href="#" data-search-trigger>Search</a></li>
+            <li><a href="account.html">Account</a></li>
+            <li><a href="cart.html" id="cartNavCount">Cart (0)</a></li>
+        </ul>
+    </header>
+
+    <main class="shop-container">
+        <h1 class="shop-title">SHOP</h1>
+
+        <div class="shop-controls-row" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:25px;">
+            <div class="category-filters" style="margin-bottom:0;">
+                <button class="filter-btn active" data-category="All">[ All ]</button>
+                <button class="filter-btn" data-category="Tops">[ Tops ]</button>
+                <button class="filter-btn" data-category="Bottoms">[ Bottoms ]</button>
+                <button class="filter-btn" data-category="Outerwear">[ Outerwear ]</button>
+            </div>
+
+            <div style="display:flex; gap:8px; align-items:center;">
+                <input
+                    type="text"
+                    id="shopSearchInput"
+                    placeholder="Search ID, name, material..."
+                    style="background:#ffffff; color:#000000; border:1px solid #333333; border-radius:4px; padding:9px 14px; font-family:'Inter',sans-serif; font-size:14px; width:260px;"
+                >
+                <button
+                    type="button"
+                    id="clearSearchBtn"
+                    style="background:#2b2b2b; color:#ffffff; border:none; padding:9px 14px; font-family:monospace; font-size:13px; border-radius:4px; cursor:pointer;"
+                >[ Clear ]</button>
+            </div>
+        </div>
+
+        <div id="shopGrid" class="products-grid"></div>
+    </main>
+
+    <script src="js/main.js?v=2"></script>
+</body>
+</html>

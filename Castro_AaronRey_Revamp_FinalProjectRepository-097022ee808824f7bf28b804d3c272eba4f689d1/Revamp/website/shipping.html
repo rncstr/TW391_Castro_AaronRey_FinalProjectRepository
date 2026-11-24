@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shipping Method - Revamp</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header class="site-header">
+        <a href="index.html" class="site-logo">Revamp</a>
+        <ul class="nav-links">
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+            <li><a href="#" data-search-trigger>Search</a></li>
+            <li><a href="account.html">Account</a></li>
+            <li><a href="cart.html" id="cartNavCount">Cart (0)</a></li>
+        </ul>
+    </header>
+
+  <main class="shipping-container">
+    <h1 class="shipping-page-title">02. Shipping Method</h1>
+    
+    <form id="shippingForm">
+      <label class="shipping-option active">
+        <input type="radio" name="shipping" value="standard" checked>
+        <div class="shipping-details">
+          <div class="shipping-title">Standard Courier Express</div>
+          <div class="shipping-desc">J&T Express / Flash Express — Estimated delivery: 3 to 5 business days</div>
+        </div>
+        <div class="shipping-price">₱100.00</div>
+      </label>
+
+      <label class="shipping-option">
+        <input type="radio" name="shipping" value="express">
+        <div class="shipping-details">
+          <div class="shipping-title">Same-Day / Priority Delivery</div>
+          <div class="shipping-desc">Grab Express / Lalamove (Metro Manila Only) — Estimated delivery: 1 to 2 days</div>
+        </div>
+        <div class="shipping-price">₱250.00</div>
+      </label>
+
+      <label class="shipping-option">
+        <input type="radio" name="shipping" value="eco">
+        <div class="shipping-details">
+          <div class="shipping-title">Eco-Conscious Green Shipping</div>
+          <div class="shipping-desc">Consolidated carbon-neutral transit in upcycled poly-mailers — Estimated delivery: 5 to 7 days</div>
+        </div>
+        <div class="shipping-price">₱80.00</div>
+      </label>
+
+      <div class="shipping-notes-wrap">
+        <label class="shipping-notes-label">Delivery Notes / Instructions (Optional)</label>
+        <textarea id="shippingNotes" class="shipping-notes-textarea" placeholder="e.g. Leave package with house guard or gate drop-box."></textarea>
+      </div>
+
+      <button type="submit" class="btn-submit">[ CONTINUE TO PAYMENT ]</button>
+    </form>
+  </main>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

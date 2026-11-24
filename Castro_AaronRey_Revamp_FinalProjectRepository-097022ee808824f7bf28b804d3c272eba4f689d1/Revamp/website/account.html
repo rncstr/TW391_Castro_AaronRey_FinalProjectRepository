@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account - Revamp</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=3">
+</head>
+<body>
+
+    <header class="site-header">
+        <a href="index.html" class="site-logo">Revamp</a>
+        <ul class="nav-links">
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+            <li><a href="#" data-search-trigger>Search</a></li>
+            <li><a href="account.html">Account</a></li>
+            <li><a href="cart.html" id="cartNavCount">Cart (0)</a></li>
+        </ul>
+    </header>
+
+    <main id="accountMainContainer" class="auth-grid">
+        <div class="auth-box">
+            <h1 class="auth-title">Sign In</h1>
+            <form id="loginForm">
+                <div class="auth-form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" name="email" required placeholder="admin@revamp.ph">
+                </div>
+                <div class="auth-form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" name="password" required placeholder="••••••••">
+                </div>
+                <button type="submit" class="btn-action">[ SIGN IN ]</button>
+                <button type="button" id="fillAdminBtn" class="btn-secondary" style="width: 100%; margin-top: 8px;">[ USE ADMIN DEMO CREDENTIALS ]</button>
+            </form>
+        </div>
+
+        <div class="auth-box">
+            <h2 class="auth-title">Create Account</h2>
+            <form id="registerForm">
+                <div class="auth-form-group">
+                    <label for="regName">Full Name</label>
+                    <input type="text" id="regName" name="name" required placeholder="Juan Cruz">
+                </div>
+                <div class="auth-form-group">
+                    <label for="regEmail">Email</label>
+                    <input type="email" id="regEmail" name="email" required placeholder="you@example.com">
+                </div>
+                <div class="auth-form-group">
+                    <label for="regPassword">Password (min. 6 characters)</label>
+                    <input type="password" id="regPassword" name="password" minlength="6" required placeholder="••••••••">
+                </div>
+                <button type="submit" class="btn-action">[ REGISTER ]</button>
+            </form>
+        </div>
+
+        <div class="security-notice">
+            Demo accounts run locally in your browser using <code>localStorage</code>. Admin demo login: <strong>admin@revamp.ph</strong> / <strong>Admin123!</strong>
+        </div>
+    </main>
+
+    <script src="js/main.js?v=3"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const fillAdminBtn = document.getElementById('fillAdminBtn');
+            if (fillAdminBtn) {
+                fillAdminBtn.addEventListener('click', () => {
+                    const emailInput = document.getElementById('loginEmail');
+                    const passInput = document.getElementById('loginPassword');
+                    if (emailInput) emailInput.value = 'admin@revamp.ph';
+                    if (passInput) passInput.value = 'Admin123!';
+                });
+            }
+        });
+    </script>
+</body>
+</html>
